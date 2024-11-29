@@ -3,14 +3,14 @@
     <item
         android:id="@+id/home"
         android:icon = "@drawable/baseline_home_24"
-        android:title="@string/Beranda" />
+        android:title="Beranda" />
     <item
         android:id="@+id/news"
         android:icon = "@drawable/baseline_newspaper_24"
-        android:title="@string/Berita" />
+        android:title="Berita" />
     <item
         android:id="@+id/history"
         android:icon = "@drawable/baseline_history_24"
-        android:title="@string/Riwayat" />
+        android:title="Riwayat" />
 
 </menu>

@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.dicoding.asclepius"
+    namespace = "com.dicoding.AgroVision"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.dicoding.asclepius"
+        applicationId = "com.dicoding.agrovision"
         minSdk = 24
         //noinspection OldTargetApi
         targetSdk = 34
@@ -68,27 +68,27 @@ dependencies {
 
 
 
-    // glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
-
-    implementation ("com.github.yalantis:ucrop:2.2.8")
-
-
-    // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-
-    // room
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-common:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
-
-    // tflite
-    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
-    implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
-    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
+//    // glide
+//    implementation("com.github.bumptech.glide:glide:4.16.0")
+//
+//
+//    implementation ("com.github.yalantis:ucrop:2.2.8")
+//
+//
+//    // retrofit
+//    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+//    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+//    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+//
+//    // room
+//    implementation("androidx.room:room-runtime:2.6.1")
+//    implementation("androidx.room:room-common:2.6.1")
+//    implementation("androidx.room:room-ktx:2.6.1")
+//    ksp("androidx.room:room-compiler:2.6.1")
+//
+//    // tflite
+//    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+//    implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
+//    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
 
 }
