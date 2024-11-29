@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon = "@drawable/baseline_home_24"
+        android:title="@string/Beranda" />
+    <item
+        android:id="@+id/news"
+        android:icon = "@drawable/baseline_newspaper_24"
+        android:title="@string/Berita" />
+    <item
+        android:id="@+id/history"
+        android:icon = "@drawable/baseline_history_24"
+        android:title="@string/Riwayat" />
+
+</menu>
