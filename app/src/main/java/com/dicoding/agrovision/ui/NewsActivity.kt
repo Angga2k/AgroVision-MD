@@ -1,4 +1,4 @@
 package com.dicoding.agrovision.ui
 
-class ResultsActivity {
+class NewsActivity {
 }
