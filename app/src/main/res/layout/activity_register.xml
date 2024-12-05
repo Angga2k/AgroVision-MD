@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Title -->
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
@@ -60,24 +59,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
-        app:layout_constraintWidth_percent="0.8" />
+        app:layout_constraintWidth_percent="0.8"
+        tools:ignore="DuplicateClickableBoundsCheck" />
 
-    <!-- Phone Number Input -->
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#CCCCCC"
-        android:hint="Masukkan Nomor Handphone Anda"
-        android:inputType="phone"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username"
-        app:layout_constraintWidth_percent="0.8" />
 
     <!-- Password Input -->
+
+    <!-- Sign Up Button -->
+
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
@@ -90,12 +79,11 @@
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phoneNumber"
+        app:layout_constraintTop_toBottomOf="@id/username"
         app:layout_constraintWidth_percent="0.8" />
 
-    <!-- Sign Up Button -->
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -109,7 +97,7 @@
 
     <!-- Login Prompt -->
     <TextView
-        android:id="@+id/tvSignUp"
+        android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sudah Punya Akun? Login"
@@ -117,7 +105,7 @@
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintTop_margin="24dp" />
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        android:layout_marginTop="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

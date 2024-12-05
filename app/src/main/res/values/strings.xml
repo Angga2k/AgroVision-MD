@@ -3,4 +3,14 @@
     <string name="Beranda" />
     <string name="Berita" />
     <string name="Riwayat" />
+    <string name="selamat_datang">Selamat Datang!</string>
+    <string name="email">Email</string>
+    <string name="masukkan_alamat_email">Masukkan alamat email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Masukkan Password</string>
+    <string name="login">Login</string>
+    <string name="google_icon">Google Icon</string>
+    <string name="login_dengan_google">Login Dengan Google</string>
+    <string name="daftar">Belum Punya Akun? Daftar</string>
+    <string name="agrovision">AgroVision</string>
 </resources>
