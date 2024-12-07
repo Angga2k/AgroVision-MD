@@ -1,17 +1,14 @@
-package com.dicoding.agrovision.view.register
+package com.dicoding.agrovision.ui.view.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.AgroVision.R
-import com.dicoding.AgroVision.databinding.ActivityRegisterBinding
 import com.dicoding.agrovision.data.model.User
-import com.dicoding.agrovision.view.MainActivity
-import com.dicoding.agrovision.view.login.LoginActivity
+import com.dicoding.agrovision.ui.view.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 

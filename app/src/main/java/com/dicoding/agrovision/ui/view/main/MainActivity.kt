@@ -1,4 +1,4 @@
-package com.dicoding.agrovision.view
+package com.dicoding.agrovision.ui.view.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.AgroVision.R
 import com.dicoding.AgroVision.databinding.ActivityMainBinding
-import com.dicoding.agrovision.view.login.LoginActivity
+import com.dicoding.agrovision.ui.view.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -18,13 +18,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val username = currentUser?.displayName ?: "Pengguna"
 
-        // Check if user is logged in
+        binding.welcomeText.text = "Selamat datang, $username!"
+
         if (auth.currentUser == null) {
-            // If no user is logged in, redirect to LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish() // Close MainActivity to prevent back navigation
+            finish()
             return
         }
 

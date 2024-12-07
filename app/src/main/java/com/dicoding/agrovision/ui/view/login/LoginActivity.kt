@@ -1,14 +1,13 @@
-package com.dicoding.agrovision.view.login
+package com.dicoding.agrovision.ui.view.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.AgroVision.R
 import com.dicoding.AgroVision.databinding.ActivityLoginBinding
-import com.dicoding.agrovision.view.MainActivity
-import com.dicoding.agrovision.view.register.RegisterActivity
+import com.dicoding.agrovision.ui.view.main.MainActivity
+import com.dicoding.agrovision.ui.view.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
