@@ -1,88 +1,51 @@
 package com.dicoding.agrovision.ui.view.main
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.dicoding.AgroVision.R
-import com.dicoding.AgroVision.databinding.ActivityMainBinding
-import com.dicoding.agrovision.ui.view.login.LoginActivity
+import com.dicoding.agrovision.ui.view.main.HomeFragment
+import com.dicoding.agrovision.ui.view.news.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var auth: FirebaseAuth
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        val username = currentUser?.displayName ?: "Pengguna"
+        setContentView(R.layout.activity_main)
 
-        binding.welcomeText.text = "Selamat datang, $username!"
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        if (auth.currentUser == null) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
+        // Menyiapkan Fragment pertama yang akan ditampilkan (misalnya HomeFragment)
+        if (savedInstanceState == null) {
+            replaceFragment(HomeFragment())
         }
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Setup Toolbar
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(true)
-
-        // Handle Toolbar Icon Click
-        binding.iconPerson.setOnClickListener {
-            Toast.makeText(this, "Profil akan ditampilkan!", Toast.LENGTH_SHORT).show()
-        }
-
-        // Handle Button Clicks
-        binding.albumButton.setOnClickListener {
-            Toast.makeText(this, "Buka album...", Toast.LENGTH_SHORT).show()
-            // Intent untuk membuka galeri atau album
-        }
-
-        binding.cameraButton.setOnClickListener {
-            Toast.makeText(this, "Buka kamera...", Toast.LENGTH_SHORT).show()
-            // Intent untuk membuka kamera
-        }
-
-        binding.checkButton.setOnClickListener {
-            Toast.makeText(this, "Memulai pemeriksaan...", Toast.LENGTH_SHORT).show()
-            // Logic untuk fitur pemeriksaan
-        }
-
-        // Setup Bottom Navigation
-        setupBottomNavigation()
-    }
-
-    private fun setupBottomNavigation() {
-        val bottomNav: BottomNavigationView = binding.bottomNavigationView
-
-        bottomNav.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
+        // Setup BottomNavigationView
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.home -> {
-                    Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show()
+                    // Ganti fragment ke HomeFragment
+                    replaceFragment(HomeFragment())
                     true
                 }
                 R.id.news -> {
-                    Toast.makeText(this, "News selected", Toast.LENGTH_SHORT).show()
-                    // Logic untuk pindah ke halaman scan
+                    // Ganti fragment ke NewsFragment
+                    replaceFragment(NewsFragment())
                     true
                 }
                 R.id.history -> {
-                    Toast.makeText(this, "History selected", Toast.LENGTH_SHORT).show()
-                    // Logic untuk pindah ke halaman profil
+
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment)
+        fragmentTransaction.commit()
     }
 }

@@ -69,6 +69,7 @@ dependencies {
     implementation ("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.firebase:firebase-auth:23.1.0")
     implementation("com.google.android.material:material:1.12.0")
+    implementation ("androidx.paging:paging-runtime:3.1.1")
 
 
 

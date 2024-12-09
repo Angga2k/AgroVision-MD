@@ -1,36 +1,25 @@
 package com.dicoding.agrovision.ui.view.news
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.dicoding.agrovision.data.model.Article
 import com.dicoding.agrovision.data.repository.NewsRepository
-import kotlinx.coroutines.launch
+import com.dicoding.agrovision.data.paging.NewsPagingSource
 
 class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
 
-
-    private val _newsLiveData = MutableLiveData<List<Article>>()
-    val newsLiveData: LiveData<List<Article>> = _newsLiveData
-
-    private val _errorLiveData = MutableLiveData<String>()
-    val errorLiveData: LiveData<String> = _errorLiveData
-
-    fun fetchNews(apiKey: String) {
-        viewModelScope.launch {
-            try {
-                val response = repository.fetchTobaccoNews(apiKey)
-                if (response.isSuccessful) {
-                    val articles = response.body()?.articles ?: emptyList()
-                    _newsLiveData.postValue(articles)
-                } else {
-                    _errorLiveData.postValue("Error: ${response.message()}")
-                }
-            } catch (e: Exception) {
-                _errorLiveData.postValue("Error: ${e.message}")
-            }
-        }
-    }
-
+    val newsPagingData: LiveData<PagingData<Article>> = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false,
+            prefetchDistance = 2
+        ),
+        pagingSourceFactory = { NewsPagingSource(repository.apiService) }
+    ).flow.cachedIn(viewModelScope).asLiveData()
 }
