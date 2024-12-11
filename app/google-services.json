@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "94017305982",
+    "project_id": "capstone-agrovision",
+    "storage_bucket": "capstone-agrovision.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94017305982:android:4a876b36d33acfc8f9072f",
+        "android_client_info": {
+          "package_name": "com.dicoding.agrovision"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_Nvkghsiil_gyBx2zjt4JXZ08kfEjtJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

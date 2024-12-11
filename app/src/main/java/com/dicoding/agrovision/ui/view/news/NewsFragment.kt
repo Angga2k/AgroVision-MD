@@ -1,62 +1,81 @@
 package com.dicoding.agrovision.ui.view.news
 
+import NewsAdapter
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.LoadState
-import androidx.paging.PagingData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.AgroVision.databinding.FragmentNewsBinding
 import com.dicoding.agrovision.NewsViewModelFactory
 import com.dicoding.agrovision.data.repository.NewsRepository
-import com.dicoding.agrovision.data.retrofit.ApiClient
-import androidx.paging.PagingDataAdapter
+import com.dicoding.agrovision.data.retrofit.ApiClient.apiService
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class NewsFragment : Fragment() {
 
     private lateinit var binding: FragmentNewsBinding
     private lateinit var viewModel: NewsViewModel
     private lateinit var newsAdapter: NewsAdapter
-    private lateinit var newsRepository: NewsRepository
+    private val newsRepository = NewsRepository(apiService)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNewsBinding.inflate(inflater, container, false)
 
-        // Initialize repository and ViewModel
-        newsRepository = NewsRepository(ApiClient.apiService)
         val factory = NewsViewModelFactory(newsRepository)
         viewModel = ViewModelProvider(this, factory).get(NewsViewModel::class.java)
 
-        // Setup RecyclerView and Adapter
-        newsAdapter = NewsAdapter()
+        newsAdapter = NewsAdapter { newsUrl ->
+            openUrlInBrowser(newsUrl)
+        }
+
         binding.rvNews.layoutManager = LinearLayoutManager(context)
         binding.rvNews.adapter = newsAdapter
 
-        // Observe PagingData from ViewModel
-        viewModel.newsPagingData.observe(viewLifecycleOwner, { pagingData ->
-            newsAdapter.submitData(lifecycle, pagingData)  // Provide PagingData to the Adapter
-        })
+        observeNewsData()
 
-        // Add LoadStateListener for loading and error states
-        newsAdapter.addLoadStateListener { loadState ->
-            // Hide loading indicator when data is loaded
-            binding.progressBar.visibility = if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+        return binding.root
+    }
 
-            // Show error message if loading failed
-            if (loadState.refresh is LoadState.Error) {
-                val errorMessage = (loadState.refresh as LoadState.Error).error.localizedMessage
-                Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+    private fun observeNewsData() {
+        // Observe paging data
+        lifecycleScope.launch {
+            viewModel.newsPagingData.collectLatest { pagingData ->
+                newsAdapter.submitData(pagingData)
             }
         }
 
-        return binding.root
+        // Observe load states for showing/hiding the progress bar
+        lifecycleScope.launch {
+            newsAdapter.loadStateFlow.collectLatest { loadStates ->
+                // Show ProgressBar when data is loading
+                binding.progressBar.visibility = if (loadStates.refresh is androidx.paging.LoadState.Loading) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+
+                // Handle errors
+                if (loadStates.refresh is androidx.paging.LoadState.Error) {
+                    Toast.makeText(context, "Failed to load news data", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
+    private fun openUrlInBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

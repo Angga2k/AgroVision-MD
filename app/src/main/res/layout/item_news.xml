@@ -13,6 +13,14 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- Gambar Artikel -->
+        <ImageView
+            android:id="@+id/ivArticleImage"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="8dp" />
+
         <!-- Judul Berita -->
         <TextView
             android:id="@+id/tvTitle"

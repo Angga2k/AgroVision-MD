@@ -1,9 +1,9 @@
-package com.dicoding.agrovision.data.paging
+package com.dicoding.agrovision.ui.view.news
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.dicoding.agrovision.data.model.Article
-import com.dicoding.agrovision.data.repository.NewsRepository
 import com.dicoding.agrovision.data.retrofit.ApiService
 import retrofit2.HttpException
 import java.io.IOException
@@ -14,13 +14,25 @@ class NewsPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         val page = params.key ?: 1
+
         return try {
             val response = apiService.getTobaccoNews(
-                query = "ekonomi tembakau OR budidaya tembakau OR pasar tembakau OR tantangan petani",
+                query = "petani OR pertanian",
+                language = "id",
                 apiKey = "c1c00ad985ac48d29105fe9a4d52e614",
                 page = page,
-                pageSize = params.loadSize
+                pageSize = params.loadSize,
+                sortBy = "publishedAt"
+
             )
+            Log.d("NewsResponse", "Response: ${response.body()?.articles}")
+            if (response.isSuccessful) {
+                Log.d("NewsPagingSource", "Success: ${response.body()?.articles?.size}")
+            } else {
+                Log.e("NewsPagingSource", "Error: ${response.code()} - ${response.message()}")
+            }
+
+
 
             if (response.isSuccessful) {
                 val articles = response.body()?.articles.orEmpty()

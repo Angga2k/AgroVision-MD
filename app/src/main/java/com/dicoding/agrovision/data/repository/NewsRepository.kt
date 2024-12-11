@@ -1,18 +1,23 @@
 package com.dicoding.agrovision.data.repository
 
-import com.dicoding.agrovision.data.model.NewsResponse
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.dicoding.agrovision.data.model.Article
 import com.dicoding.agrovision.data.retrofit.ApiService
-import retrofit2.Response
+import com.dicoding.agrovision.ui.view.news.NewsPagingSource
+import kotlinx.coroutines.flow.Flow
 
-class NewsRepository(val apiService: ApiService) {
+class NewsRepository(private val apiService: ApiService) {
 
-    suspend fun fetchTobaccoNews(page: Int, pageSize: Int): Response<NewsResponse> {
-        return apiService.getTobaccoNews(
-            query = "ekonomi tembakau OR budidaya tembakau OR pasar tembakau OR tantangan petani",
-            apiKey = "c1c00ad985ac48d29105fe9a4d52e614",
-            page = page,
-            pageSize = pageSize
-        )
+    fun getNewsPagingData(): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false,
+                prefetchDistance = 2
+            ),
+            pagingSourceFactory = { NewsPagingSource(apiService) }
+        ).flow
     }
 }
-
