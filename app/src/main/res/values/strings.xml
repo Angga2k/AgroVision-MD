@@ -15,4 +15,10 @@
     <string name="agrovision">AgroVision</string>
     <string name="result">"Hasil "</string>
     <string name="hasil_analisis">"Hasil Analisis : "</string>
+    <string name="alamat_email">Alamat Email :</string>
+    <string name="username">Username :</string>
+    <string name="log_out">Log Out</string>
+    <string name="foto_profil">Foto Profil</string>
+    <string name="profile">Profile</string>
+    <string name="p_password">Password :</string>
 </resources>
