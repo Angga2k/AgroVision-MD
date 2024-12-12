@@ -21,7 +21,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AgroVision"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:requestLegacyExternalStorage="true">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <activity
             android:name="com.dicoding.agrovision.ui.view.main.MainActivity"
@@ -34,6 +44,9 @@
         </activity>
         <activity android:name="com.dicoding.agrovision.ui.view.login.LoginActivity"/>
         <activity android:name="com.dicoding.agrovision.ui.view.register.RegisterActivity"/>
+        <activity android:name="com.dicoding.agrovision.ui.view.result.PredictionActivity"/>
+        <activity android:name="com.yalantis.ucrop.UCropActivity" />
     </application>
+
 
 </manifest>

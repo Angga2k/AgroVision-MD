@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.dicoding.AgroVision.R
-import com.dicoding.agrovision.ui.view.main.HomeFragment
 import com.dicoding.agrovision.ui.view.news.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.widget.Toolbar
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        // Menyiapkan Fragment pertama yang akan ditampilkan (misalnya HomeFragment)
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
         }
@@ -45,18 +43,14 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
-                    // Ganti fragment ke HomeFragment
                     replaceFragment(HomeFragment())
                     true
                 }
                 R.id.news -> {
-                    // Ganti fragment ke NewsFragment
                     replaceFragment(NewsFragment())
                     true
                 }
                 R.id.history -> {
-                    // Ganti fragment ke HistoryFragment
-                    // Replace with actual HistoryFragment when it's ready
                     true
                 }
                 else -> false

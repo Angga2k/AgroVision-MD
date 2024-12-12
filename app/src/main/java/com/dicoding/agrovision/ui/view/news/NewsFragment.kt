@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.AgroVision.databinding.FragmentNewsBinding
 import com.dicoding.agrovision.NewsViewModelFactory
 import com.dicoding.agrovision.data.repository.NewsRepository
-import com.dicoding.agrovision.data.retrofit.ApiClient.apiService
+import com.dicoding.agrovision.data.retrofit.ApiClient.newsApiService
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,7 +24,7 @@ class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
     private lateinit var viewModel: NewsViewModel
     private lateinit var newsAdapter: NewsAdapter
-    private val newsRepository = NewsRepository(apiService)
+    private val newsRepository = NewsRepository(newsApiService)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

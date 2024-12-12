@@ -13,4 +13,6 @@
     <string name="login_dengan_google">Login Dengan Google</string>
     <string name="daftar">Belum Punya Akun? Daftar</string>
     <string name="agrovision">AgroVision</string>
+    <string name="result">"Hasil "</string>
+    <string name="hasil_analisis">"Hasil Analisis : "</string>
 </resources>

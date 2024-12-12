@@ -36,18 +36,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcomeText" />
 
+    <!-- Button for Album -->
     <ImageView
         android:id="@+id/previewImageView"
-        android:layout_width="357dp"
-        android:layout_height="323dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="361dp"
+        android:layout_height="332dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/ic_place_holder"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptionText" />
 
-    <!-- Button for Album -->
     <Button
         android:id="@+id/albumButton"
         android:layout_width="157dp"
