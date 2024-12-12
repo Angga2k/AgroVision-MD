@@ -11,8 +11,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primaryColor"
-        tools:ignore="MissingConstraints">
+        android:background="@color/primaryColor">
 
         <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
@@ -22,7 +21,19 @@
             android:background="@color/primaryColor"
             app:title="AgroVision"
             app:titleTextColor="@android:color/white"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <!-- Gambar Profile di Toolbar -->
+            <ImageView
+                android:id="@+id/imageViewProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:padding="8dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/person"
+                android:contentDescription="@string/profile" />
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Fragment container to display fragments -->
@@ -42,5 +53,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
