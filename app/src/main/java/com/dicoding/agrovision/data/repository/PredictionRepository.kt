@@ -1,8 +1,10 @@
 package com.dicoding.agrovision.data.repository
 
+import com.dicoding.agrovision.data.model.HistoryResponse
 import com.dicoding.agrovision.data.model.PredictionResponse
 import com.dicoding.agrovision.data.model.SavePredictionResponse
 import com.dicoding.agrovision.data.retrofit.ApiClient
+import com.dicoding.agrovision.data.retrofit.ApiService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,4 +30,18 @@ class PredictionRepository {
     ): Response<SavePredictionResponse> {
         return agroVisionApi.savePrediction(authorization, file, result, accuracy)
     }
+
+    suspend fun getPredictionHistory(token: String): List<HistoryResponse> {
+        val response = agroVisionApi.getPredictionHistory("Bearer $token")
+        if (response.isSuccessful) {
+            // Return the data array from the response
+            return response.body()?.data ?: emptyList()
+        } else {
+            // Handle the failure (you can return emptyList() or handle the error as needed)
+            return emptyList()
+        }
+    }
+
+
+
 }

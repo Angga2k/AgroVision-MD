@@ -2,6 +2,7 @@ package com.dicoding.agrovision.ui.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.dicoding.AgroVision.R
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import com.dicoding.agrovision.ui.view.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.dicoding.agrovision.data.local.UserPreference
+import com.dicoding.agrovision.ui.view.history.HistoryFragment
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.history -> {
+                    replaceFragment(HistoryFragment())
                     true
                 }
                 else -> false
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
+        Log.d("MainActivity", "Replacing fragment: ${fragment::class.java.simpleName}")
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.nav_host_fragment, fragment)
         fragmentTransaction.commit()

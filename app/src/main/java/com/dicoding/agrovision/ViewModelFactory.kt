@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.agrovision.data.repository.NewsRepository
 import com.dicoding.agrovision.data.repository.PredictionRepository
+import com.dicoding.agrovision.ui.view.history.HistoryViewModel
 import com.dicoding.agrovision.ui.view.news.NewsViewModel
 import com.dicoding.agrovision.ui.view.result.PredictionViewModel
 
@@ -27,6 +28,18 @@ class PredictionViewModelFactory(private val repository: PredictionRepository) :
             modelClass.isAssignableFrom(PredictionViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
                 PredictionViewModel(repository) as T
+            }
+            else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+        }
+    }
+}
+class HistoryViewModelFactory(private val repository: PredictionRepository) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return when {
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                @Suppress("UNCHECKED_CAST")
+                HistoryViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -1,6 +1,8 @@
 package com.dicoding.agrovision.data.retrofit
 
+import com.dicoding.agrovision.data.model.HistoryResponse
 import com.dicoding.agrovision.data.model.NewsResponse
+import com.dicoding.agrovision.data.model.PredictionHistoryResponse
 import com.dicoding.agrovision.data.model.PredictionResponse
 import com.dicoding.agrovision.data.model.SavePredictionResponse
 import okhttp3.MultipartBody
@@ -18,7 +20,7 @@ interface ApiService {
     suspend fun getTobaccoNews(
         @Query("q") query: String = "pertanian tembakau Indonesia",
         @Query("page") page: Int,
-        @Query("language") language: String ="id",
+        @Query("language") language: String = "id",
         @Query("pageSize") pageSize: Int,
         @Query("apiKey") apiKey: String,
         @Query("sortBy") sortBy: String = "publishedAt"
@@ -46,5 +48,9 @@ interface ApiService {
         @Part("result") result: RequestBody,
         @Part("accuracy") accuracy: RequestBody
     ): Response<SavePredictionResponse>
-}
 
+    @GET("get-predictions/")
+    suspend fun getPredictionHistory(
+        @Header("Authorization") token: String
+    ): Response<PredictionHistoryResponse>
+}

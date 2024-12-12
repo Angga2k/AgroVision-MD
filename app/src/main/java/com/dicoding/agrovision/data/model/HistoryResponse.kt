@@ -3,19 +3,29 @@ package com.dicoding.agrovision.data.model
 import com.google.gson.annotations.SerializedName
 
 data class HistoryResponse(
+	@SerializedName("accuracy")
+	val accuracy: String,
 
-	@field:SerializedName("date")
-	val date: String? = null,
+	@SerializedName("date")
+	val date: String,
 
-	@field:SerializedName("result")
-	val result: String? = null,
+	@SerializedName("image_url")
+	val imageUrl: String,
 
-	@field:SerializedName("prediction_id")
-	val predictionId: String? = null,
+	@SerializedName("prediction_id")
+	val predictionId: String,
 
-	@field:SerializedName("user_id")
-	val userId: String? = null,
+	@SerializedName("result")
+	val result: String,
 
-	@field:SerializedName("image_url")
-	val imageUrl: String? = null
+	@SerializedName("user_id")
+	val userId: String
 )
+
+data class PredictionHistoryResponse(
+	val status: String,
+	val data: List<HistoryResponse>
+)
+
+
+
