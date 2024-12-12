@@ -10,6 +10,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.widget.Toolbar
 import com.dicoding.agrovision.ui.view.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.dicoding.agrovision.data.local.UserPreference
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,9 +24,14 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        // Pengecekan token atau pengguna login di MainActivity
+        val userPreference = UserPreference(applicationContext)
 
-        if (auth.currentUser == null) {
+        // Pengecekan apakah token ada, jika tidak arahkan ke login
+        val token = runBlocking { userPreference.getToken().first() }
 
+        if (token.isNullOrEmpty() || auth.currentUser == null) {
+            // Token tidak ada atau pengguna belum login, arahkan ke LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -35,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
+        // Jika savedInstanceState null, ganti fragment dengan HomeFragment
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
         }

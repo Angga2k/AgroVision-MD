@@ -23,6 +23,7 @@
                 app:title="@string/result" />
         </com.google.android.material.appbar.AppBarLayout>
 
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
