@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicoding.agrovision.data.model.PredictionResponse
+import com.dicoding.agrovision.data.model.SavePredicitionResponse
 import com.dicoding.agrovision.data.repository.PredictionRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.File
 
 class PredictionViewModel(private val repository: PredictionRepository) : ViewModel() {
@@ -39,5 +41,8 @@ class PredictionViewModel(private val repository: PredictionRepository) : ViewMo
                 _isLoading.postValue(false)
             }
         }
+    }
+    suspend fun savePrediction(imageFile: File, userId: String, result: String): Response<SavePredicitionResponse> {
+        return repository.savePrediction(imageFile, userId, result)
     }
 }

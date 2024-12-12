@@ -20,7 +20,6 @@ class PredictionRepository {
         return agroVisionApi.predictLeaf(filePart)
     }
 
-    // Method untuk menyimpan hasil prediksi
     suspend fun savePrediction(
         imageFile: File,
         userId: String,
