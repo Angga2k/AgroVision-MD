@@ -20,6 +20,8 @@ import com.dicoding.agrovision.data.local.UserPreference
 import com.dicoding.agrovision.data.repository.PredictionRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HistoryFragment : Fragment() {
 
@@ -30,6 +32,20 @@ class HistoryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var tvNoHistory: TextView
+
+    // Fungsi untuk mengonversi waktu dari UTC ke UTC+7 (WIB)
+    private fun convertToUTC7(dateString: String): String {
+        // Format waktu dalam GMT (contoh: "Fri, 13 Dec 2024 03:28:12 GMT")
+        val gmtFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+        gmtFormat.timeZone = TimeZone.getTimeZone("GMT") // Set timezone ke GMT
+        val date: Date = gmtFormat.parse(dateString) ?: return ""
+
+        // Konversi waktu ke UTC+7 (WIB)
+        val utc7Format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // Format output yang diinginkan
+        utc7Format.timeZone = TimeZone.getTimeZone("Asia/Jakarta") // Set timezone ke Jakarta (UTC+7)
+
+        return utc7Format.format(date)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,19 +83,26 @@ class HistoryFragment : Fragment() {
             }
         }
 
-
         // Observasi data history
         historyViewModel.predictionHistory.observe(viewLifecycleOwner) { history ->
             Log.d("HistoryFragment", "Received history: $history")
             if (history.isNotEmpty()) {
                 showLoading(false)
                 showNoHistoryMessage(false)
-                historyAdapter.updateData(history)
+
+                // Konversi waktu untuk setiap item dalam riwayat
+                val formattedHistory = history.map {
+                    it.copy(date = convertToUTC7(it.date))  // Asumsi 'time' adalah field yang berisi waktu
+                }
+
+                historyAdapter.updateData(formattedHistory)
             } else {
                 showLoading(false)
                 showNoHistoryMessage(true)
             }
         }
+
+        // Observasi scan baru
         historyViewModel.newScan.observe(viewLifecycleOwner) { _ ->
             lifecycleScope.launch {
                 val token = userPreference.getToken().first()
@@ -92,8 +115,6 @@ class HistoryFragment : Fragment() {
         return view // Kembalikan tampilan fragment yang sudah diinflasi
     }
 
-
-
     // Fungsi untuk menampilkan atau menyembunyikan ProgressBar
     private fun showLoading(isLoading: Boolean) {
         progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -102,9 +123,11 @@ class HistoryFragment : Fragment() {
 
     // Fungsi untuk menampilkan atau menyembunyikan pesan "Tidak ada riwayat"
     private fun showNoHistoryMessage(isEmpty: Boolean) {
+        // Menampilkan pesan jika tidak ada riwayat
 
     }
 }
+
 
 
 
