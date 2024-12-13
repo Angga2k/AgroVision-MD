@@ -3,6 +3,7 @@ package com.dicoding.agrovision.ui.view.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.dicoding.AgroVision.R
@@ -13,6 +14,7 @@ import com.dicoding.agrovision.ui.view.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.dicoding.agrovision.data.local.UserPreference
 import com.dicoding.agrovision.ui.view.history.HistoryFragment
+import com.dicoding.agrovision.ui.view.profile.ProfileActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -26,14 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Pengecekan token atau pengguna login di MainActivity
         val userPreference = UserPreference(applicationContext)
 
-        // Pengecekan apakah token ada, jika tidak arahkan ke login
         val token = runBlocking { userPreference.getToken().first() }
 
         if (token.isNullOrEmpty() || auth.currentUser == null) {
-            // Token tidak ada atau pengguna belum login, arahkan ke LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -42,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        val imageViewProfile: ImageView = toolbar.findViewById(R.id.imageViewProfile)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
@@ -68,6 +68,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        imageViewProfile.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun replaceFragment(fragment: Fragment) {

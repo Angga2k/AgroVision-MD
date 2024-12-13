@@ -21,4 +21,7 @@
     <string name="foto_profil">Foto Profil</string>
     <string name="profile">Profile</string>
     <string name="p_password">Password :</string>
+    <string name="password_anda">Password anda</string>
+    <string name="username_anda">Username anda</string>
+    <string name="email_anda">Alamat email anda</string>
 </resources>

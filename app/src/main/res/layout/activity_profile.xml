@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:ignore="ExtraText">
 
-    <!-- AppBarLayout -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -14,7 +13,6 @@
         android:background="@color/primaryColor"
         tools:ignore="MissingConstraints">
 
-        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -24,8 +22,6 @@
             app:titleTextColor="@android:color/white"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
     </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- BottomNavigationView -->
 
     <ImageView
         android:id="@+id/profileImage"
@@ -78,7 +74,8 @@
     <EditText
         android:id="@+id/inputField4"
         android:layout_width="297dp"
-        android:layout_height="39dp"
+        android:layout_height="48dp"
+        android:hint="@string/username_anda"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +98,8 @@
     <EditText
         android:id="@+id/inputField"
         android:layout_width="297dp"
-        android:layout_height="39dp"
+        android:layout_height="48dp"
+        android:hint="@string/email_anda"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,8 +122,9 @@
     <EditText
         android:id="@+id/inputField2"
         android:layout_width="297dp"
-        android:layout_height="39dp"
+        android:layout_height="48dp"
         android:drawableEnd="@drawable/baseline_visibility_24"
+        android:hint="@string/password_anda"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,6 +143,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.641" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

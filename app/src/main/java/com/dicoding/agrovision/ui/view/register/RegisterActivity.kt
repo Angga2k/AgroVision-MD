@@ -11,6 +11,7 @@ import com.dicoding.agrovision.data.model.User
 import com.dicoding.agrovision.ui.view.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -18,10 +19,14 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var editTextEmail: EditText
     private lateinit var editTextPassword: EditText
     private lateinit var buttonRegister: Button
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        // Initialize Firestore
+        firestore = FirebaseFirestore.getInstance()
 
         editTextName = findViewById(R.id.username)
         editTextEmail = findViewById(R.id.etEmail)
@@ -41,23 +46,26 @@ class RegisterActivity : AppCompatActivity() {
                             val user = FirebaseAuth.getInstance().currentUser
                             Toast.makeText(this, "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show()
 
+
+
                             val userId = user?.uid
-                            val database = FirebaseDatabase.getInstance().getReference("Users")
                             val userObj = User(name, email)
 
+                            // Save user data to Firestore
                             if (userId != null) {
-                                database.child(userId).setValue(userObj).addOnCompleteListener { dbTask ->
-                                    if (dbTask.isSuccessful) {
+                                firestore.collection("users").document(userId)
+                                    .set(userObj)
+                                    .addOnSuccessListener {
                                         Toast.makeText(this, "Data pengguna berhasil disimpan!", Toast.LENGTH_SHORT).show()
-                                    } else {
-                                        Toast.makeText(this, "Gagal menyimpan data pengguna", Toast.LENGTH_SHORT).show()
                                     }
-                                }
+                                    .addOnFailureListener { exception ->
+                                        Toast.makeText(this, "Gagal menyimpan data pengguna: ${exception.message}", Toast.LENGTH_SHORT).show()
+                                    }
                             }
+
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
                         } else {
-
                             Toast.makeText(this, "Pendaftaran gagal: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                         }
                     }

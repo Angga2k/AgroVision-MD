@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -26,6 +27,7 @@ import androidx.fragment.app.viewModels
 import com.dicoding.agrovision.PredictionViewModelFactory
 import com.dicoding.agrovision.data.repository.PredictionRepository
 import com.dicoding.agrovision.ui.view.result.PredictionViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 
 class HomeFragment : Fragment() {
@@ -33,11 +35,14 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
+    private lateinit var welcomeText: TextView
+
 
     // ViewModel untuk prediksi
     private val predictionViewModel: PredictionViewModel by viewModels {
         PredictionViewModelFactory(PredictionRepository())
     }
+
 
     // Declare ActivityResultLauncher for UCrop
     private lateinit var uCropLauncher: ActivityResultLauncher<Intent>
@@ -52,6 +57,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val username = currentUser.displayName ?: "User"
+            binding.welcomeText.text = "Selamat datang, $username!"
+        }
 
         // Initialize UCrop activity result launcher
         uCropLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
