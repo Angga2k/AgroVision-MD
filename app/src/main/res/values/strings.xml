@@ -24,4 +24,5 @@
     <string name="password_anda">Password anda</string>
     <string name="username_anda">Username anda</string>
     <string name="email_anda">Alamat email anda</string>
+    <string name="leaf_image_desc">landing page image\n</string>
 </resources>
